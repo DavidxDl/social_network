@@ -1,13 +1,13 @@
-import Link from "next/link";
+import { type IUser } from "~/lib/types";
+import getFriendRequests from "~/server/db/query/getFriendRequests";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const requests = await getFriendRequests("66470442bc4b22e2f61774bf");
+  console.log(requests);
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <header className="fixed top-0 w-full bg-black p-2">
-        <span className="text-2xl font-extrabold text-white">
-          Social Network
-        </span>
-      </header>
-    </main>
+    <>
+      <h1>Hello World </h1>
+      <ul>{requests?.map((r) => <li key={r._id}>{r.sender.username}</li>)}</ul>
+    </>
   );
 }
